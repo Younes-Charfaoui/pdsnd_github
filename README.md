@@ -1,13 +1,17 @@
-### Date created
+## Date created ⏰
+
 This project was created on 4/24/2020
 
-### Project Title
+## Project Title 💡
+
 Programming for data science Bikesharing Project.
 
-### Description
+## Description 👨‍⚕️
+
 This project is to explore data related to bike share systems for three major cities in the United States—Chicago, New York City, and Washington.
 
-### Files used
+## Files used 🗃️
+
 The files are :
 - bikeshare.py
 - chicago.csv
