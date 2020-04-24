@@ -361,7 +361,7 @@ def main():
             elif select_data == '6':
                 break
 
-        restart = choice("\nWould you like to restart?\n\n[Y]Yes\n[N]No\n\n>")
+        restart = choice("\nWould you like to restart the process?\n\n[Y]Yes\n[N]No\n\n>")
         if restart.lower() != 'y':
             break
 
