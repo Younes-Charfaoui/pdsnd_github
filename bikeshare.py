@@ -56,47 +56,47 @@ def load_data(city, month, day):
         (str) month - name of the month(s) to filter
         (str) day - name of the day(s) of week to filter
     Returns:
-        df - Pandas DataFrame containing filtered data
+        data - Pandas DataFrame containing filtered data
     """
 
     print("\nThe program is loading the data for the filters you have chosen.")
     start_time = time.time()
 
     if isinstance(city, list):
-        df = pd.concat(map(lambda city: pd.read_csv(CITY_DATA[city]), city),
+        data = pd.concat(map(lambda city: pd.read_csv(CITY_DATA[city]), city),
                        sort=True)
                                       
         try:
-            df = df.reindex(columns=['Unnamed: 0', 'Start Time', 'End Time',
+            data = data.reindex(columns=['Unnamed: 0', 'Start Time', 'End Time',
                                      'Trip Duration', 'Start Station',
                                      'End Station', 'User Type', 'Gender',
                                      'Birth Year'])
         except:
             pass
     else:
-        df = pd.read_csv(CITY_DATA[city])
+        data = pd.read_csv(CITY_DATA[city])
 
-    df['Start Time'] = pd.to_datetime(df['Start Time'])
-    df['Month'] = df['Start Time'].dt.month
-    df['Weekday'] = df['Start Time'].dt.weekday_name
-    df['Start Hour'] = df['Start Time'].dt.hour
+    data['Start Time'] = pd.to_datetime(data['Start Time'])
+    data['Month'] = data['Start Time'].dt.month
+    data['Weekday'] = data['Start Time'].dt.weekday_name
+    data['Start Hour'] = data['Start Time'].dt.hour
 
     if isinstance(month, list):
-        df = pd.concat(map(lambda month: df[df['Month'] ==
+        data = pd.concat(map(lambda month: data[data['Month'] ==
                            (months.index(month)+1)], month))
     else:
-        df = df[df['Month'] == (months.index(month)+1)]
+        data = data[data['Month'] == (months.index(month)+1)]
 
     if isinstance(day, list):
-        df = pd.concat(map(lambda day: df[df['Weekday'] ==
+        data = pd.concat(map(lambda day: data[data['Weekday'] ==
                            (day.title())], day))
     else:
-        df = df[df['Weekday'] == day.title()]
+        data = data[data['Weekday'] == day.title()]
 
     print("\nThis took {} seconds.".format((time.time() - start_time)))
     print('-'*50)
 
-    return df
+    return data
 
 def load_data(city, month, day):
     """Load data for the specified filters of city(ies), month(s) and
@@ -106,87 +106,87 @@ def load_data(city, month, day):
         (str) month - name of the month(s) to filter
         (str) day - name of the day(s) of week to filter
     Returns:
-        df - Pandas DataFrame containing filtered data
+        data - Pandas DataFrame containing filtered data
     """
 
     print("\nThe program is loading the data for the filters you have chosen.")
     start_time = time.time()
 
     if isinstance(city, list):
-        df = pd.concat(map(lambda city: pd.read_csv(CITY_DATA[city]), city),
+        data = pd.concat(map(lambda city: pd.read_csv(CITY_DATA[city]), city),
                        sort=True)
 
         try:
-            df = df.reindex(columns=['Unnamed: 0', 'Start Time', 'End Time',
+            data = data.reindex(columns=['Unnamed: 0', 'Start Time', 'End Time',
                                      'Trip Duration', 'Start Station',
                                      'End Station', 'User Type', 'Gender',
                                      'Birth Year'])
         except:
             pass
     else:
-        df = pd.read_csv(CITY_DATA[city])
+        data = pd.read_csv(CITY_DATA[city])
 
-    df['Start Time'] = pd.to_datetime(df['Start Time'])
-    df['Month'] = df['Start Time'].dt.month
-    df['Weekday'] = df['Start Time'].dt.weekday_name
-    df['Start Hour'] = df['Start Time'].dt.hour
+    data['Start Time'] = pd.to_datetime(data['Start Time'])
+    data['Month'] = data['Start Time'].dt.month
+    data['Weekday'] = data['Start Time'].dt.weekday_name
+    data['Start Hour'] = data['Start Time'].dt.hour
 
     if isinstance(month, list):
-        df = pd.concat(map(lambda month: df[df['Month'] ==
+        data = pd.concat(map(lambda month: data[data['Month'] ==
                            (months.index(month)+1)], month))
     else:
-        df = df[df['Month'] == (months.index(month)+1)]
+        data = data[data['Month'] == (months.index(month)+1)]
 
     if isinstance(day, list):
-        df = pd.concat(map(lambda day: df[df['Weekday'] ==
+        data = pd.concat(map(lambda day: data[data['Weekday'] ==
                            (day.title())], day))
     else:
-        df = df[df['Weekday'] == day.title()]
+        data = data[data['Weekday'] == day.title()]
 
     print("\nThis took {} seconds.".format((time.time() - start_time)))
     print('-'*50)
 
-    return df
+    return data
 
-def time_stats(df):
+def time_stats(data):
     """Display statistics on the most frequent times of travel."""
 
     print('\nDisplaying the statistics on the most frequent times of '
           'travel...\n')
     start_time = time.time()
 
-    most_common_month = df['Month'].mode()[0]
+    most_common_month = data['Month'].mode()[0]
     print('For the selected filter, the month with the most travels is: ' +
           str(months[most_common_month-1]).title() + '.')
 
-    most_common_day = df['Weekday'].mode()[0]
+    most_common_day = data['Weekday'].mode()[0]
     print('For the selected filter, the most common day of the week is: ' +
           str(most_common_day) + '.')
 
-    most_common_hour = df['Start Hour'].mode()[0]
+    most_common_hour = data['Start Hour'].mode()[0]
     print('For the selected filter, the most common start hour is: ' +
           str(most_common_hour) + '.')
 
     print("\nThis took {} seconds.".format((time.time() - start_time)))
     print('-'*50)
 
-def station_stats(df):
+def station_stats(data):
     """Display statistics on the most popular stations and trip."""
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
-    most_common_start_station = str(df['Start Station'].mode()[0])
+    most_common_start_station = str(data['Start Station'].mode()[0])
     print("For the selected filters, the most common start station is: " +
           most_common_start_station)
 
-    most_common_end_station = str(df['End Station'].mode()[0])
+    most_common_end_station = str(data['End Station'].mode()[0])
     print("For the selected filters, the most common start end is: " +
           most_common_end_station)
 
-    df['Start-End Combination'] = (df['Start Station'] + ' - ' +
-                                   df['End Station'])
-    most_common_start_end_combination = str(df['Start-End Combination']
+    data['Start-End Combination'] = (data['Start Station'] + ' - ' +
+                                   data['End Station'])
+    most_common_start_end_combination = str(data['Start-End Combination']
                                             .mode()[0])
     print("For the selected filters, the most common start-end combination "
           "of stations is: " + most_common_start_end_combination)
@@ -194,13 +194,13 @@ def station_stats(df):
     print("\nThis took {} seconds.".format((time.time() - start_time)))
     print('-'*50)
 
-def trip_duration_stats(df):
+def trip_duration_stats(data):
     """Display statistics on the total and average trip duration."""
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
-    total_travel_time = df['Trip Duration'].sum()
+    total_travel_time = data['Trip Duration'].sum()
     total_travel_time = (str(int(total_travel_time//86400)) +
                          'd ' +
                          str(int((total_travel_time % 86400)//3600)) +
@@ -212,7 +212,7 @@ def trip_duration_stats(df):
     print('For the selected filters, the total travel time is : ' +
           total_travel_time + '.')
 
-    mean_travel_time = df['Trip Duration'].mean()
+    mean_travel_time = data['Trip Duration'].mean()
     mean_travel_time = (str(int(mean_travel_time//60)) + 'm ' +
                         str(int(mean_travel_time % 60)) + 's')
     print("For the selected filters, the mean travel time is : " +
@@ -221,18 +221,18 @@ def trip_duration_stats(df):
     print("\nThis took {} seconds.".format((time.time() - start_time)))
     print('-'*50)
 
-def user_stats(df, city):
+def user_stats(data, city):
     """Display statistics on bikeshare users."""
 
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
-    user_types = df['User Type'].value_counts().to_string()
+    user_types = data['User Type'].value_counts().to_string()
     print("Distribution for user types:")
     print(user_types)
 
     try:
-        gender_distribution = df['Gender'].value_counts().to_string()
+        gender_distribution = data['Gender'].value_counts().to_string()
         print("\nDistribution for each gender (male or female):")
         print(gender_distribution)
     except KeyError:
@@ -240,13 +240,13 @@ def user_stats(df, city):
               .format(city.title()))
 
     try:
-        earliest_birth_year = str(int(df['Birth Year'].min()))
+        earliest_birth_year = str(int(data['Birth Year'].min()))
         print("\nFor the selected filter, the oldest person to ride one bike was born in: "
                + earliest_birth_year)
-        most_recent_birth_year = str(int(df['Birth Year'].max()))
+        most_recent_birth_year = str(int(data['Birth Year'].max()))
         print("For the selected filter, the youngest person to ride one bike was born in: "
                + most_recent_birth_year)
-        most_common_birth_year = str(int(df['Birth Year'].mode()[0]))
+        most_common_birth_year = str(int(data['Birth Year'].mode()[0]))
         print("For the selected filter, the most common birth year amongst riders is: "
               + most_common_birth_year)
     except:
@@ -256,7 +256,7 @@ def user_stats(df, city):
     print("\nThis took {} seconds.".format((time.time() - start_time)))
     print('-'*50)
 
-def raw_data(df, mark_place):
+def raw_data(data, mark_place):
     """Display 5 line of sorted raw data each time."""
 
     print("\nYou have chosen to see raw data.")
@@ -284,22 +284,22 @@ def raw_data(df, mark_place):
             asc_or_desc = False
 
         if sort_df == '1':
-            df = df.sort_values(['Start Time'], ascending=asc_or_desc)
+            data = data.sort_values(['Start Time'], ascending=asc_or_desc)
         elif sort_df == '2':
-            df = df.sort_values(['End Time'], ascending=asc_or_desc)
+            data = data.sort_values(['End Time'], ascending=asc_or_desc)
         elif sort_df == '3':
-            df = df.sort_values(['Trip Duration'], ascending=asc_or_desc)
+            data = data.sort_values(['Trip Duration'], ascending=asc_or_desc)
         elif sort_df == '4':
-            df = df.sort_values(['Start Station'], ascending=asc_or_desc)
+            data = data.sort_values(['Start Station'], ascending=asc_or_desc)
         elif sort_df == '5':
-            df = df.sort_values(['End Station'], ascending=asc_or_desc)
+            data = data.sort_values(['End Station'], ascending=asc_or_desc)
         elif sort_df == '':
             pass
 
     while True:
-        for i in range(mark_place, len(df.index)):
+        for i in range(mark_place, len(data.index)):
             print("\n")
-            print(df.iloc[mark_place:mark_place+5].to_string())
+            print(data.iloc[mark_place:mark_place+5].to_string())
             print("\n")
             mark_place += 5
 
@@ -337,7 +337,7 @@ def main():
     while True:
         click.clear()
         city, month, day = get_filters()
-        df = load_data(city, month, day)
+        data = load_data(city, month, day)
 
         mark_place = 0
         while True:
@@ -349,15 +349,15 @@ def main():
                                  ('1', '2', '3', '4', '5', '6'))
             click.clear()
             if select_data == '1':
-                time_stats(df)
+                time_stats(data)
             elif select_data == '2':
-                station_stats(df)
+                station_stats(data)
             elif select_data == '3':
-                trip_duration_stats(df)
+                trip_duration_stats(data)
             elif select_data == '4':
-                user_stats(df, city)
+                user_stats(data, city)
             elif select_data == '5':
-                mark_place = raw_data(df, mark_place)
+                mark_place = raw_data(data, mark_place)
             elif select_data == '6':
                 break
 
