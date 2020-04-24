@@ -45,7 +45,7 @@ def get_filters():
         else:
             print("\nLet us do that one more time")
 
-    print('-'*50)
+    print('-'*40)
     return city, month, day
 
 def load_data(city, month, day):
@@ -94,7 +94,7 @@ def load_data(city, month, day):
         data = data[data['Weekday'] == day.title()]
 
     print("\nThis took {} seconds.".format((time.time() - start_time)))
-    print('-'*50)
+    print('-'*40)
 
     return data
 
@@ -144,7 +144,7 @@ def load_data(city, month, day):
         data = data[data['Weekday'] == day.title()]
 
     print("\nThis took {} seconds.".format((time.time() - start_time)))
-    print('-'*50)
+    print('-'*40)
 
     return data
 
@@ -168,7 +168,7 @@ def time_stats(data):
           str(most_common_hour) + '.')
 
     print("\nThis took {} seconds.".format((time.time() - start_time)))
-    print('-'*50)
+    print('-'*40)
 
 def station_stats(data):
     """Display statistics on the most popular stations and trip."""
@@ -192,7 +192,7 @@ def station_stats(data):
           "of stations is: " + most_common_start_end_combination)
 
     print("\nThis took {} seconds.".format((time.time() - start_time)))
-    print('-'*50)
+    print('-'*40)
 
 def trip_duration_stats(data):
     """Display statistics on the total and average trip duration."""
@@ -219,7 +219,7 @@ def trip_duration_stats(data):
           mean_travel_time + ".")
 
     print("\nThis took {} seconds.".format((time.time() - start_time)))
-    print('-'*50)
+    print('-'*40)
 
 def user_stats(data, city):
     """Display statistics on bikeshare users."""
@@ -254,7 +254,7 @@ def user_stats(data, city):
               .format(city.title()))
 
     print("\nThis took {} seconds.".format((time.time() - start_time)))
-    print('-'*50)
+    print('-'*40)
 
 def raw_data(data, mark_place):
     """Display 5 line of sorted raw data each time."""
